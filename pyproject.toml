@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "pybot-app"
+version = "0.1.0"
+description = ""
+authors = ["Ha Phan <thanhha.work@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pytelegrambotapi = "^4.14.1"
+beautifulsoup4 = "^4.12.2"
+readability-lxml = "^0.8.1"
+google-cloud-aiplatform = "^1.38.1"
+urllib3 = "<2.0"
+python-dotenv = "^1.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
