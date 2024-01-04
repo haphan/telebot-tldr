@@ -41,10 +41,11 @@ def start(message: Message):
 
 Tags: {tags}
 Ads-o-meter: {ads}
+Bài viết được tóm tắt bởi Google Cloud Gemini Pro
     """
     bot.reply_to(message, reply)
 
 
 if __name__ == "__main__":
-
+    logger.info('Bot started!')
     bot.polling()

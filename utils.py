@@ -30,8 +30,6 @@ def create_logger():
     logger.addHandler(stdoutHandler)
     logger.addHandler(errHandler)
 
-    logger.info('Logger instance created!')
-
     return logger
 
 
