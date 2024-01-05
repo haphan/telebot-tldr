@@ -1,2 +1,3 @@
 #!/bin/bash
-poetry run python app.py
+UVICORN_PORT="${PORT:-8080}"
+poetry run uvicorn app:app --workers 1 --port $UVICORN_PORT

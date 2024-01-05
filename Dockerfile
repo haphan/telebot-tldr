@@ -13,4 +13,8 @@ RUN git clone https://github.com/haphan/telebot-tldr.git .
 
 RUN poetry install -vvv && chmod +x run.sh
 
+EXPOSE ${PORT:-8080}
+
+HEALTHCHECK CMD curl --fail http://localhost:${PORT}/_healthz
+
 ENTRYPOINT ["./run.sh"]

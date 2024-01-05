@@ -1,7 +1,11 @@
+import asyncio
 import os
+from contextlib import asynccontextmanager
 
-import telebot
+import uvicorn
 from dotenv import load_dotenv
+from fastapi import FastAPI
+from telebot.async_telebot import AsyncTeleBot
 from telebot.types import Message
 
 from crawler import readability_text
@@ -16,13 +20,13 @@ bot_token = os.getenv('TELEGRAM_BOT_TOKEN')
 # Replace with the discussion group ID
 discussion_grp_id = os.getenv('TELEGRAM_GROUP_ID')
 
-bot = telebot.TeleBot(bot_token, parse_mode=None)
+bot = AsyncTeleBot(bot_token, parse_mode=None)
 
 logger = create_logger()
 
 
 @bot.message_handler(func=lambda m: m.chat.id == int(discussion_grp_id))
-def start(message: Message):
+async def start(message: Message):
     """ Handling message post to chat group"""
     if not is_url(message.text):
         return
@@ -41,11 +45,26 @@ def start(message: Message):
 
 Tags: {tags}
 Ads-o-meter: {ads}
-Bài viết được tóm tắt bởi Google Cloud Gemini Pro
+Tóm tắt bởi Google Gemini Pro
     """
-    bot.reply_to(message, reply)
+    await bot.reply_to(message, reply)
 
 
-if __name__ == "__main__":
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    asyncio.create_task(bot.polling())
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
+
+
+@app.get('/_healthz')
+@app.get('/')
+async def heathcheck():
+    return 'OK!'
+
+
+if __name__ == '__main__':
     logger.info('Bot started!')
-    bot.polling()
+    uvicorn.run(app)
