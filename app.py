@@ -52,7 +52,7 @@ Tóm tắt bởi Google Gemini Pro
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    asyncio.create_task(bot.polling())
+    asyncio.create_task(bot.polling(non_stop=True, timeout=60, interval=2))
     yield
 
 
