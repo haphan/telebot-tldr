@@ -16,7 +16,9 @@ safety_settings = {
 
 def summarize_article(article: str) -> str:
     prompt = f"""
-    Provide a brief summary for the following article in Vietnamese, use easy to understand language: 
+    You are an expert in news reading and content analysis.
+    Provide a brief summary for the following article in Vietnamese. 
+    Use easy to understand language, do not output as markdown, only use plaintext.
 
     Article:
     {article}
@@ -41,13 +43,18 @@ def adsometer(article: str) -> str:
 
     Use this rating scale:
 
-    Purely informational: The article contains no promotional or advertising elements.
-    Neutral: The article contains a few minor promotional elements, but the primary focus is still on providing information.
-    Highly promotional: The article is primarily focused on promoting a product, service, or brand, with information being secondary.
+    1. Purely informational: The article contains no promotional or advertising elements.
+    2. Neutral: The article contains a few minor promotional elements, but the primary focus is still on providing information.
+    3. Highly promotional: The article is primarily focused on promoting a product, service, or brand, with information being secondary.
+    
+    
+    Straightforward rating output only. No explanation. 
 
+    -------
     Article:
     {article}
 
+    -------
     Rating:
     """
     responses = model.generate_content(
