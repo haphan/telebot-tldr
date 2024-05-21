@@ -2,7 +2,7 @@ import google.auth
 from vertexai.preview.generative_models import GenerativeModel
 from google.cloud.aiplatform_v1beta1.types.content import HarmCategory, SafetySetting
 
-model = GenerativeModel("gemini-pro")
+model = GenerativeModel("publishers/google/models/gemini-1.5-pro-preview-0409")
 
 # Block only high probability harmful content
 safety_settings = {
